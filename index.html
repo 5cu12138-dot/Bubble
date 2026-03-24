@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubble</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="intro-container">
+        <video id="intro-video" src="入梦页.mp4" playsinline></video>
+    </div>
+
+    <div id="loading"></div>
+    <canvas class="webgl"></canvas>
+
+    <audio id="bg-audio" src="摇篮曲.mp3" loop preload="auto"></audio>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+                "lil-gui": "https://cdn.jsdelivr.net/npm/lil-gui@0.19/+esm",
+                "cannon-es": "https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/+esm"
+            }
+        }
+    </script>
+    <script type="module" src="main.js"></script>
+
+    <script>
+        const introContainer = document.getElementById('intro-container');
+        const introVideo = document.getElementById('intro-video');
+        const bgAudio = document.getElementById('bg-audio'); // 🌟 新增：获取音频元素
+
+        // 🌟 新增逻辑：第一下点击，同时播放视频和音频
+        introContainer.addEventListener('click', function startMedia() {
+            introVideo.play();
+            bgAudio.play();
+            // 播放后立即移除这个监听器，防止重复触发
+            introContainer.removeEventListener('click', startMedia);
+        }, { once: true });
+
+        // 监听视频播放结束事件
+        introVideo.addEventListener('ended', () => {
+            // 视频播完后，绑定第二次点击事件：触发淡出过渡进入 3D 场景
+            introContainer.addEventListener('click', () => {
+                introContainer.classList.add('fade-out');
+                
+                setTimeout(() => {
+                    introContainer.style.display = 'none';
+                }, 1500);
+            }, { once: true });
+        });
+    </script>
+</body>
+</html>

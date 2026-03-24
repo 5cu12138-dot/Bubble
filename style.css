@@ -1,0 +1,35 @@
+/* 🌟 入梦页视频层样式 (无文字版) */
+#intro-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1.5s ease-in-out; 
+    cursor: pointer; /* 🌟 新增：不写文字，但用鼠标小手暗示用户这里可以点击 */
+}
+
+#intro-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+/* 触发后追加的淡出类 */
+.fade-out {
+    opacity: 0 !important;
+    pointer-events: none;
+}
+
+/* 🌟 新增：彻底隐藏原有的 loading 提示，确保没有任何文字 */
+#loading {
+    display: none !important;
+}
